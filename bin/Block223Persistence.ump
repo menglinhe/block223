@@ -1,12 +1,13 @@
 external interface Serializable {}
 
-class Block223
+class Block223 {
 	depend java.io.Serializable;
 	isA Serializable;
-	private static final long serialVersionUID = ;
+	private static final long serialVersionUID = -49572015329148534L;
 	
 public void reinitialize() {
 	
 	
+	}
 	}
 	
