@@ -2,10 +2,12 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+import java.io.Serializable;
 import java.util.*;
 
-// line 78 "../../../../../Block223.ump"
-public class Paddle
+// line 91 "../../../../../Block223Persistence.ump"
+// line 191 "../../../../../Block223.ump"
+public class Paddle implements Serializable
 {
 
   //------------------------
@@ -32,6 +34,16 @@ public class Paddle
 
   public Paddle(int aMaxPaddleLength, int aMinPaddleLength, Game aGame)
   {
+    // line 196 "../../../../../Block223.ump"
+    if(aMaxPaddleLength <= 0 || aMaxPaddleLength > 400){
+       		throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
+       	}
+    // END OF UMPLE BEFORE INJECTION
+    // line 202 "../../../../../Block223.ump"
+    if(aMinPaddleLength <= 0){
+       		throw new RuntimeException("The minimum length of the paddle must be greater than zero");
+       	}
+    // END OF UMPLE BEFORE INJECTION
     maxPaddleLength = aMaxPaddleLength;
     minPaddleLength = aMinPaddleLength;
     if (aGame == null || aGame.getPaddle() != null)
@@ -43,6 +55,16 @@ public class Paddle
 
   public Paddle(int aMaxPaddleLength, int aMinPaddleLength, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Ball aBallForGame, Block223 aBlock223ForGame)
   {
+    // line 196 "../../../../../Block223.ump"
+    if(aMaxPaddleLength <= 0 || aMaxPaddleLength > 400){
+       		throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
+       	}
+    // END OF UMPLE BEFORE INJECTION
+    // line 202 "../../../../../Block223.ump"
+    if(aMinPaddleLength <= 0){
+       		throw new RuntimeException("The minimum length of the paddle must be greater than zero");
+       	}
+    // END OF UMPLE BEFORE INJECTION
     maxPaddleLength = aMaxPaddleLength;
     minPaddleLength = aMinPaddleLength;
     game = new Game(aNameForGame, aNrBlocksPerLevelForGame, aAdminForGame, aBallForGame, this, aBlock223ForGame);
@@ -55,6 +77,11 @@ public class Paddle
   public boolean setMaxPaddleLength(int aMaxPaddleLength)
   {
     boolean wasSet = false;
+    // line 196 "../../../../../Block223.ump"
+    if(aMaxPaddleLength <= 0 || aMaxPaddleLength > 400){
+       		throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
+       	}
+    // END OF UMPLE BEFORE INJECTION
     maxPaddleLength = aMaxPaddleLength;
     wasSet = true;
     return wasSet;
@@ -63,6 +90,11 @@ public class Paddle
   public boolean setMinPaddleLength(int aMinPaddleLength)
   {
     boolean wasSet = false;
+    // line 202 "../../../../../Block223.ump"
+    if(aMinPaddleLength <= 0){
+       		throw new RuntimeException("The minimum length of the paddle must be greater than zero");
+       	}
+    // END OF UMPLE BEFORE INJECTION
     minPaddleLength = aMinPaddleLength;
     wasSet = true;
     return wasSet;
@@ -100,5 +132,13 @@ public class Paddle
             "maxPaddleLength" + ":" + getMaxPaddleLength()+ "," +
             "minPaddleLength" + ":" + getMinPaddleLength()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 94 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = 11L ;
+
+  
 }

@@ -2,10 +2,12 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+import java.io.Serializable;
 import java.util.*;
 
-// line 46 "../../../../../Block223.ump"
-public class Block
+// line 58 "../../../../../Block223Persistence.ump"
+// line 97 "../../../../../Block223.ump"
+public class Block implements Serializable
 {
 
   //------------------------
@@ -42,6 +44,26 @@ public class Block
 
   public Block(int aRed, int aGreen, int aBlue, int aPoints, Game aGame)
   {
+    // line 106 "../../../../../Block223.ump"
+    if(aRed < MIN_COLOR || aRed > MAX_COLOR){
+       		throw new RuntimeException("Red must be between 0 and 255.");
+       	}
+    // END OF UMPLE BEFORE INJECTION
+    // line 113 "../../../../../Block223.ump"
+    if(aGreen < MIN_COLOR || aGreen > MAX_COLOR){
+       		throw new RuntimeException("Green must be between 0 and 255.");
+       	}
+    // END OF UMPLE BEFORE INJECTION
+    // line 119 "../../../../../Block223.ump"
+    if(aBlue < MIN_COLOR || aBlue > MAX_COLOR){
+       		throw new RuntimeException("Blue must be between 0 and 255.");
+       	}
+    // END OF UMPLE BEFORE INJECTION
+    // line 125 "../../../../../Block223.ump"
+    if(aPoints < MIN_POINTS || aPoints > MAX_POINTS){
+       		throw new RuntimeException("Points must be between 1 and 1000.");
+       	}
+    // END OF UMPLE BEFORE INJECTION
     red = aRed;
     green = aGreen;
     blue = aBlue;
@@ -62,6 +84,11 @@ public class Block
   public boolean setRed(int aRed)
   {
     boolean wasSet = false;
+    // line 106 "../../../../../Block223.ump"
+    if(aRed < MIN_COLOR || aRed > MAX_COLOR){
+       		throw new RuntimeException("Red must be between 0 and 255.");
+       	}
+    // END OF UMPLE BEFORE INJECTION
     red = aRed;
     wasSet = true;
     return wasSet;
@@ -70,6 +97,11 @@ public class Block
   public boolean setGreen(int aGreen)
   {
     boolean wasSet = false;
+    // line 113 "../../../../../Block223.ump"
+    if(aGreen < MIN_COLOR || aGreen > MAX_COLOR){
+       		throw new RuntimeException("Green must be between 0 and 255.");
+       	}
+    // END OF UMPLE BEFORE INJECTION
     green = aGreen;
     wasSet = true;
     return wasSet;
@@ -78,6 +110,11 @@ public class Block
   public boolean setBlue(int aBlue)
   {
     boolean wasSet = false;
+    // line 119 "../../../../../Block223.ump"
+    if(aBlue < MIN_COLOR || aBlue > MAX_COLOR){
+       		throw new RuntimeException("Blue must be between 0 and 255.");
+       	}
+    // END OF UMPLE BEFORE INJECTION
     blue = aBlue;
     wasSet = true;
     return wasSet;
@@ -86,6 +123,11 @@ public class Block
   public boolean setPoints(int aPoints)
   {
     boolean wasSet = false;
+    // line 125 "../../../../../Block223.ump"
+    if(aPoints < MIN_POINTS || aPoints > MAX_POINTS){
+       		throw new RuntimeException("Points must be between 1 and 1000.");
+       	}
+    // END OF UMPLE BEFORE INJECTION
     points = aPoints;
     wasSet = true;
     return wasSet;
@@ -257,6 +299,17 @@ public class Block
     }
   }
 
+  // line 63 "../../../../../Block223Persistence.ump"
+   public static  void reinitializeAutouniqueID(List<Block> blocks){
+    nextId = 0; 
+	    for (Block block: blocks) {
+	      if (block.getId() > nextId) {
+	        nextId = block.getId();
+	      }
+	    }
+	    nextId++;
+  }
+
 
   public String toString()
   {
@@ -267,5 +320,13 @@ public class Block
             "blue" + ":" + getBlue()+ "," +
             "points" + ":" + getPoints()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 61 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = 7L ;
+
+  
 }

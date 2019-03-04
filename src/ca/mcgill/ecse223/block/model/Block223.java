@@ -362,9 +362,25 @@ public class Block223 implements Serializable
     
   }
 
-  // line 11 "../../../../../Block223Persistence.ump"
+  // line 8 "../../../../../Block223Persistence.ump"
    public void reinitialize(){
-    
+    User.reinitializeUniqueUserName(this.getUsers());
+		Game.reinitializeUniqueGameName(this.getGames());
+		for(Game game: games){
+			Block.reinitializeAutouniqueID(game.getBlocks());
+		}
+  }
+
+  // line 12 "../../../../../Block223.ump"
+   public Game findGame(String name){
+    for(Game game : games)
+      {
+        if (game.getName() == name)
+        {
+          return game;
+        }
+      }
+      return null;
   }
   
   //------------------------
@@ -372,7 +388,7 @@ public class Block223 implements Serializable
   //------------------------
   
   // line 6 "../../../../../Block223Persistence.ump"
-  private static final long serialVersionUID = -49572015329148534L ;
+  private static final long serialVersionUID = 1L ;
 
   
 }

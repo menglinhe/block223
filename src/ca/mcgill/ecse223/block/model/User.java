@@ -2,10 +2,12 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+import java.io.Serializable;
 import java.util.*;
 
-// line 11 "../../../../../Block223.ump"
-public class User
+// line 16 "../../../../../Block223Persistence.ump"
+// line 23 "../../../../../Block223.ump"
+public class User implements Serializable
 {
 
   //------------------------
@@ -31,6 +33,11 @@ public class User
 
   public User(String aUsername, Block223 aBlock223, UserRole... allRoles)
   {
+    // line 28 "../../../../../Block223.ump"
+    if (aUsername == null || aUsername.length() == 0) {
+       		throw new RuntimeException("The username must be specified.");
+       	}
+    // END OF UMPLE BEFORE INJECTION
     if (!setUsername(aUsername))
     {
       throw new RuntimeException("Cannot create due to duplicate username");
@@ -55,6 +62,11 @@ public class User
   public boolean setUsername(String aUsername)
   {
     boolean wasSet = false;
+    // line 28 "../../../../../Block223.ump"
+    if (aUsername == null || aUsername.length() == 0) {
+       		throw new RuntimeException("The username must be specified.");
+       	}
+    // END OF UMPLE BEFORE INJECTION
     String anOldUsername = getUsername();
     if (hasWithUsername(aUsername)) {
       return wasSet;
@@ -245,11 +257,27 @@ public class User
     }
   }
 
+  // line 21 "../../../../../Block223Persistence.ump"
+   public static  void reinitializeUniqueUserName(List<User> users){
+    usersByUsername = new HashMap<String, User>();
+	  for (User user : users) {
+	      usersByUsername.put(user.getUsername(), user);
+	      }
+  }
+
 
   public String toString()
   {
     return super.toString() + "["+
             "username" + ":" + getUsername()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");
-  }
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 19 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = 2L ;
+
+  
 }
