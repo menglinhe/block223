@@ -1,39 +1,39 @@
 package ca.mcgill.ecse223.block.view;
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import ca.mcgill.ecse223.block.application.Block223Application;
 import ca.mcgill.ecse223.block.controller.Block223Controller;
 import ca.mcgill.ecse223.block.controller.InvalidInputException;
+import ca.mcgill.ecse223.block.controller.TOGame;
 
-import java.awt.GridBagLayout;
 import javax.swing.JTextField;
-import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
-import java.awt.GridLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class ManageGames extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7748537705368152328L;
 	private JPanel contentPane;
 	private JTextField enterGameNameTxt;
-	UpdateGameSettings updateGameSettings = new UpdateGameSettings();
+	private JComboBox<String> selectAGameComboBox;
+	UpdateGameSettings updateGameSettings;
 	AddGameDefineSettings addGameDefineSettings = new AddGameDefineSettings();
 
 	/**
@@ -45,6 +45,7 @@ public class ManageGames extends JFrame {
 				try {
 					ManageGames frame = new ManageGames();
 					frame.setVisible(true);
+					frame.refreshData();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -52,6 +53,15 @@ public class ManageGames extends JFrame {
 		});
 	}
 
+	public void refreshData() throws InvalidInputException {
+		selectAGameComboBox.removeAllItems();
+		selectAGameComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Select game"}));
+		for(TOGame toGame : Block223Controller.getDesignableGames()) {
+			selectAGameComboBox.addItem(toGame.getName());
+		}
+		selectAGameComboBox.setSelectedIndex(0);
+	}
+	
 	/**
 	 * Create the frame.
 	 */
@@ -80,25 +90,66 @@ public class ManageGames extends JFrame {
 				String gameName = enterGameNameTxt.getText();
 				try {
 					Block223Controller.createGame(gameName);
+					addGameDefineSettings.setVisible(true);
+					refreshData();
 				} catch (InvalidInputException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					JOptionPane.showMessageDialog(contentPane, e1.getMessage());
 				}
-				addGameDefineSettings.setVisible(true);
 			}
 		});
-		
-		JComboBox selectAGameComboBox = new JComboBox();
-		selectAGameComboBox.setModel(new DefaultComboBoxModel(new String[] {"Select a game"}));
+
+		selectAGameComboBox = new JComboBox<String>();
+		selectAGameComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// call selectGame pls
+				if (selectAGameComboBox.getSelectedItem() != null) {
+					if (!((selectAGameComboBox.getSelectedItem()).equals("Select game"))) {
+						String selectedGame = (String) selectAGameComboBox.getSelectedItem();
+						try {
+							Block223Controller.selectGame(selectedGame);
+						} catch (InvalidInputException e1) {
+							JOptionPane.showMessageDialog(contentPane, e1.getMessage());
+						}
+					}
+				}
+			}
+		});
+		selectAGameComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Select game"}));
+
 		
 		JButton updateGameButton = new JButton("Update game");
 		updateGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				updateGameSettings.setVisible(true);
+				try {
+					if(selectAGameComboBox.getSelectedIndex() > 0)
+					{
+						Block223Controller.selectGame((String) selectAGameComboBox.getSelectedItem());
+						updateGameSettings = new UpdateGameSettings();
+						updateGameSettings.setParent(ManageGames.this);
+						updateGameSettings.setVisible(true);
+					}
+				} catch (InvalidInputException e1) {
+					JOptionPane.showMessageDialog(contentPane, e1.getMessage());
+				}
 			}
 		});
 		
 		JButton deleteGameButton = new JButton("Delete game");
+		deleteGameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(selectAGameComboBox.getSelectedIndex() > 0)
+					{
+						Block223Controller.deleteGame((String) selectAGameComboBox.getSelectedItem());
+						refreshData();
+					}
+				} catch (InvalidInputException e1) {
+					JOptionPane.showMessageDialog(contentPane, e1.getMessage());
+				}
+			}
+		});
+		
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)

@@ -4,20 +4,17 @@ import javax.swing.*;
 import java.awt.*;
 
 import ca.mcgill.ecse223.block.controller.*;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.MatteBorder;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
-
-import ca.mcgill.ecse223.block.view.*;
+import javax.swing.GroupLayout.Alignment;
 
 // Note : need method refresh data
 
 public class Block223Page extends JFrame {
 	
 	private static final long serialVersionUID = -5468712039074806735L;
-	private JLabel errorMessage;
-	private String error = null;
 
 
 	// Instantiate the other windows 
@@ -75,7 +72,45 @@ public class Block223Page extends JFrame {
 		rightMenuPanel.setMaximumSize(new Dimension(200, 330));
 		rightMenuPanel.setBorder(new MatteBorder(1, 0, 0, 0, (Color) new Color(0, 0, 0)));
 		getContentPane().add(rightMenuPanel, BorderLayout.EAST);
-		rightMenuPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		
+		JLabel levelNumberLabel = new JLabel("Level:");
+		
+		JLabel livesRemainingLabel = new JLabel("Lives:");
+		
+		JLabel scoreLabel = new JLabel("Score:");
+		
+		JLabel hallOfFameLabel = new JLabel("Hall of Fame");
+		hallOfFameLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		GroupLayout gl_rightMenuPanel = new GroupLayout(rightMenuPanel);
+		gl_rightMenuPanel.setHorizontalGroup(
+			gl_rightMenuPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_rightMenuPanel.createSequentialGroup()
+					.addGroup(gl_rightMenuPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_rightMenuPanel.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_rightMenuPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(levelNumberLabel)
+								.addComponent(livesRemainingLabel, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+								.addComponent(scoreLabel)))
+						.addGroup(gl_rightMenuPanel.createSequentialGroup()
+							.addGap(66)
+							.addComponent(hallOfFameLabel)))
+					.addContainerGap(65, Short.MAX_VALUE))
+		);
+		gl_rightMenuPanel.setVerticalGroup(
+			gl_rightMenuPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_rightMenuPanel.createSequentialGroup()
+					.addGap(28)
+					.addComponent(levelNumberLabel)
+					.addGap(18)
+					.addComponent(livesRemainingLabel)
+					.addGap(18)
+					.addComponent(scoreLabel)
+					.addGap(18)
+					.addComponent(hallOfFameLabel)
+					.addContainerGap(222, Short.MAX_VALUE))
+		);
+		rightMenuPanel.setLayout(gl_rightMenuPanel);
 		
 		JPanel playAreaPanel = new JPanel();
 		playAreaPanel.setBounds(new Rectangle(0, 0, 390, 390));
@@ -90,7 +125,13 @@ public class Block223Page extends JFrame {
 		// Listeners 
 		manageGamesButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				manageGames.setVisible(true);
+				try {
+					manageGames.refreshData();
+					manageGames.setVisible(true);
+				} catch (InvalidInputException e) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(Block223Page.this, e.getMessage());
+				}
 			}
 		});
 		loginButton.addActionListener(new ActionListener() {
@@ -100,7 +141,13 @@ public class Block223Page extends JFrame {
 		});
 		manageBlocksButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				blockSettings.setVisible(true);
+				try {
+					blockSettings.updateGamesList();
+					blockSettings.setVisible(true);
+				} catch (InvalidInputException e) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(Block223Page.this, e.getMessage());
+				}
 			}
 		});
 		quitButton.addActionListener(new ActionListener() {
@@ -112,13 +159,7 @@ public class Block223Page extends JFrame {
 	
 	// refreshData() method 
 	
-	public void mainWindowRefreshData() {
-		// error
-		errorMessage.setText(error);
-		if (error == null || error.length() == 0) {
-			// populate page with data
-//			userNameTxt.setText("");
-		}
+	private void mainWindowRefreshData() {
 		
 	}
 }

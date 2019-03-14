@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -72,42 +74,44 @@ public class SignUpPage extends JFrame {
 
 		
 		JLabel playerSignUpTitleLabel = new JLabel("Player sign up");
+		playerSignUpTitleLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JLabel adminPasswordLabel = new JLabel("Admin pass:");
 		
 		adminPasswordTxt = new JPasswordField();
 		adminPasswordTxt.setColumns(10);
 		
-		JLabel AdminRight = new JLabel("Admin right enabled by defining admin pass");
-		AdminRight.setFont(new Font("Lucida Grande", Font.PLAIN, 11));
+		JLabel AdminRight = new JLabel("Admin rights enabled by defining admin pass:");
+		AdminRight.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(36, Short.MAX_VALUE)
+					.addContainerGap(45, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(adminPasswordLabel)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(adminPasswordTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(passwordLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(userNameLabel, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
-									.addGap(18)
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(passwordTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(userNameTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-								.addComponent(AdminRight, GroupLayout.PREFERRED_SIZE, 245, GroupLayout.PREFERRED_SIZE))
-							.addGap(29))
+							.addComponent(AdminRight)
+							.addGap(33))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(playerSignUpTitleLabel)
-							.addGap(108))
+							.addComponent(adminPasswordLabel)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(adminPasswordTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(65))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(passwordLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(userNameLabel, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addComponent(passwordTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(userNameTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(53))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(signUpButton, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
-							.addGap(87))))
+							.addGap(87))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(playerSignUpTitleLabel)
+							.addGap(79))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -128,7 +132,7 @@ public class SignUpPage extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(adminPasswordLabel)
 						.addComponent(adminPasswordTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
 					.addComponent(signUpButton)
 					.addGap(25))
 		);
@@ -143,9 +147,9 @@ public class SignUpPage extends JFrame {
 				String adminPassword = new String(charAdminPassword); 
 				try {
 					Block223Controller.register(username, password, adminPassword);
+					SignUpPage.this.dispose();
 				} catch (InvalidInputException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();	// auto generated code, not sure what this line does
+					JOptionPane.showMessageDialog(contentPane, e1.getMessage());
 				}
 			}
 		});

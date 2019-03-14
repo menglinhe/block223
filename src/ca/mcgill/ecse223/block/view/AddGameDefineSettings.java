@@ -14,6 +14,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.JOptionPane;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -106,6 +107,76 @@ public class AddGameDefineSettings extends JFrame {
 		minPaddleLengthLabel = new JLabel("Min paddle length:");
 		
 		createGameButton = new JButton("Create game");
+		
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addGap(57)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(68)
+							.addComponent(createGameButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGap(67))
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(minPaddleLengthLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(maxPaddleLengthLabel, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
+									.addComponent(ballFactorLabel, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+									.addComponent(minBallSpeedXTxt, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
+								.addGap(10)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+									.addComponent(minBallSpeedYTxt, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+									.addComponent(minePaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+									.addComponent(maxPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+									.addComponent(BallFactorTxt, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)))
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+									.addComponent(nrOfLevelsLabel)
+									.addComponent(nrOfBlocksLabel, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
+								.addGap(16)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+									.addComponent(NrOfBlocksTxt, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+									.addComponent(nrOfLevelsTxt, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(minBallSpeedLabel)))
+					.addGap(48))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(41, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(nrOfLevelsTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(nrOfLevelsLabel))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(NrOfBlocksTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(nrOfBlocksLabel))
+					.addGap(18)
+					.addComponent(minBallSpeedLabel)
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(minBallSpeedXTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(minBallSpeedYTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(10)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(BallFactorTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(ballFactorLabel))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(maxPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(maxPaddleLengthLabel))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(minePaddleLengthTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(minPaddleLengthLabel))
+					.addGap(18)
+					.addComponent(createGameButton)
+					.addGap(30))
+		);
+		contentPane.setLayout(gl_contentPane);
 		createGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String error = "";
@@ -156,83 +227,18 @@ public class AddGameDefineSettings extends JFrame {
 				if (error.length() == 0) {
 					try {
 						Block223Controller.setGameDetails(nrLevels, nrBlocksPerLevel, minBallSpeedX, minBallSpeedY, ballSpeedIncreaseFactor, maxPaddleLength, minPaddleLength);
+						JOptionPane.showMessageDialog(AddGameDefineSettings.this, "Game created!");
+						AddGameDefineSettings.this.dispose();
 					} catch (InvalidInputException e) {
-						error = e.getMessage();
+						JOptionPane.showMessageDialog(contentPane, e.getMessage());
 					}
+				} else {
+					JOptionPane.showMessageDialog(AddGameDefineSettings.this, error);
 				}
+				
 				//update visuals
 //				refreshDate();
 			}
 		});
-		
-		
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(125)
-					.addComponent(createGameButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(115))
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-					.addGap(57)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-									.addComponent(minPaddleLengthLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(maxPaddleLengthLabel, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
-								.addComponent(ballFactorLabel, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
-								.addComponent(minBallSpeedXTxt, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
-							.addGap(10)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(minBallSpeedYTxt, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
-								.addComponent(minePaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
-								.addComponent(maxPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
-								.addComponent(BallFactorTxt, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(nrOfLevelsLabel)
-								.addComponent(nrOfBlocksLabel, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
-							.addGap(16)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(NrOfBlocksTxt, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
-								.addComponent(nrOfLevelsTxt, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)))
-						.addComponent(minBallSpeedLabel))
-					.addContainerGap(32, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(33, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(nrOfLevelsTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(nrOfLevelsLabel))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(NrOfBlocksTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(nrOfBlocksLabel))
-					.addGap(18)
-					.addComponent(minBallSpeedLabel)
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(minBallSpeedXTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(minBallSpeedYTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(10)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(BallFactorTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(ballFactorLabel))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(maxPaddleLengthTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(maxPaddleLengthLabel))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(minePaddleLengthTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(minPaddleLengthLabel))
-					.addGap(18)
-					.addComponent(createGameButton)
-					.addContainerGap())
-		);
-		contentPane.setLayout(gl_contentPane);
 	}
 }

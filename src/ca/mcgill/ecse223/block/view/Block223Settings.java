@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -56,12 +57,11 @@ public class Block223Settings extends JFrame {
 		JButton saveButton = new JButton("Save");
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				actionPerformed(e);
 				try {
 					Block223Controller.saveGame();
 				} catch (InvalidInputException e1) {
+					JOptionPane.showMessageDialog(contentPane, e1.getMessage());
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
 				}
 			}
 		});
@@ -69,7 +69,8 @@ public class Block223Settings extends JFrame {
 		JButton logOutButton = new JButton("Logout");
 		logOutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					Block223Controller.logout();	
+					Block223Controller.logout();
+					Block223Settings.this.dispose();
 			}
 		});
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -83,11 +84,11 @@ public class Block223Settings extends JFrame {
 					.addGap(44))
 		);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(38, Short.MAX_VALUE)
-					.addComponent(saveButton)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(38)
+					.addComponent(saveButton)
+					.addPreferredGap(ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
 					.addComponent(logOutButton)
 					.addGap(29))
 		);

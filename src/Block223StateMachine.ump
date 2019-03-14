@@ -1,0 +1,58 @@
+namespace ca.mcgill.ecse223.block.model;
+
+// classes need to be implemented in SM: Ball, Paddle, Game, Block
+// not sure if we need to put Block223 in the SM
+
+class Ball {
+	BallState {
+		HitPaddle {
+			entry / {bounce();}
+			hitBlock() -> HitBlock;
+			hitWall() -> HitWall;
+			goesOutOfBounds() -> OutOfBound;
+			hitNothing() -> HitNothing;
+			exit / {moveBall();}
+		}
+		
+		HitWall	{
+			entry / {bounce();}
+			hitBlock() -> HitBlock;
+			goesOutOfBounds() -> OutOfBound;
+			hitPaddle() -> HitPaddle;
+			hitNothing() -> HitNothing;
+			exit / {moveBall();}
+		}
+		HitNothing	{
+			hitBlock() -> HitBlock;
+			hitWall() -> HitWall;
+			goesOutOfBounds() -> OutOfBound;
+			hitPaddle() -> HitPaddle;
+			hitNothing() -> HitNothing;
+			exit / {moveBall();}
+		}
+		HitBlock	{
+			entry / {bounce();}
+			hitWall() -> HitWall;
+			goesOutOfBounds() -> OutOfBound;
+			hitPaddle() -> HitPaddle;
+			hitNothing() -> HitNothing;
+			exit / {moveBall();}
+		}
+		OutOfBound	{
+
+		} 
+	}
+}
+
+class Paddle {
+
+}
+
+class Game {
+
+
+}
+
+class Block {
+
+}

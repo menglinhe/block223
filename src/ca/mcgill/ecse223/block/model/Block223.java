@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 3 "../../../../../Block223Persistence.ump"
-// line 5 "../../../../../Block223.ump"
+// line 8 "../../../../../Block223.ump"
 public class Block223 implements Serializable
 {
 
@@ -270,9 +270,9 @@ public class Block223 implements Serializable
     return 0;
   }
   /* Code from template association_AddManyToOne */
-  public Game addGame(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle)
+  public Game addGame(boolean aPublished, String aName, int aNrBlocksPerLevel, HallOfFame aHallOfFame, Admin aAdmin, Ball aBall, Paddle aPaddle)
   {
-    return new Game(aName, aNrBlocksPerLevel, aAdmin, aBall, aPaddle, this);
+    return new Game(aPublished, aName, aNrBlocksPerLevel, aHallOfFame, aAdmin, aBall, aPaddle, this);
   }
 
   public boolean addGame(Game aGame)
@@ -371,11 +371,11 @@ public class Block223 implements Serializable
 		}
   }
 
-  // line 12 "../../../../../Block223.ump"
+  // line 15 "../../../../../Block223.ump"
    public Game findGame(String name){
     for(Game game : games)
       {
-        if (game.getName() == name)
+        if (game.getName().equals(name))
         {
           return game;
         }

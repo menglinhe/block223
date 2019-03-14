@@ -10,12 +10,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class LoginPage extends JFrame {
 
@@ -29,6 +33,7 @@ public class LoginPage extends JFrame {
 	
 	
 	SignUpPage signUpPage = new SignUpPage();
+	
 
 	/**
 	 * Launch the application.
@@ -52,13 +57,14 @@ public class LoginPage extends JFrame {
 	public LoginPage() {
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 320, 400);
+		setBounds(100, 100, 320, 431);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		setResizable(false);
 		
 		JLabel block223TitleLabel = new JLabel("BLOCK 223");
-		block223TitleLabel.setFont(new Font("Source Sans Pro", Font.PLAIN, 26));
+		block223TitleLabel.setFont(new Font("Source Sans Pro Black", Font.PLAIN, 36));
 		
 		JLabel userNameLabel = new JLabel("Username:");
 		
@@ -68,6 +74,7 @@ public class LoginPage extends JFrame {
 		userNameTxt.setColumns(10);
 		
 		passwordTxt = new JPasswordField();
+		
 		passwordTxt.setColumns(10);
 		JButton loginButton = new JButton("Login");
 		loginButton.addActionListener(new ActionListener() {
@@ -77,10 +84,20 @@ public class LoginPage extends JFrame {
 				String password = new String(charPassword); 
 				try {
 					Block223Controller.login(username, password);
+					LoginPage.this.dispose();
 				} catch (InvalidInputException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
-					
+					JOptionPane.showMessageDialog(contentPane, e1.getMessage());
+				} 
+			}
+		});
+		
+		passwordTxt.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
+					// call login
+					loginButton.doClick();
 				}
 			}
 		});
@@ -93,42 +110,55 @@ public class LoginPage extends JFrame {
 		});
 		
 		JLabel dontHaveAnAccountLabel = new JLabel("Don't have an account?");
+		
+		JLabel prompt1 = new JLabel("Login with admin pass to create / update Block223");
+		prompt1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		
+		JLabel prompt2 = new JLabel("Login with player pass to play Block223");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(61)
+					.addContainerGap(98, Short.MAX_VALUE)
+					.addComponent(signUpHereButton, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+					.addGap(87))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(96, Short.MAX_VALUE)
+					.addComponent(dontHaveAnAccountLabel)
+					.addGap(85))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(74)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(passwordLabel)
-						.addComponent(userNameLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(userNameLabel, GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(userNameTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(passwordTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(64))
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(104, Short.MAX_VALUE)
-					.addComponent(block223TitleLabel)
-					.addGap(83))
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-					.addGap(113)
+					.addContainerGap(111, Short.MAX_VALUE)
 					.addComponent(loginButton, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(132, Short.MAX_VALUE))
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-					.addGap(83)
-					.addComponent(dontHaveAnAccountLabel)
-					.addContainerGap(99, Short.MAX_VALUE))
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-					.addGap(106)
-					.addComponent(signUpHereButton, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(112, Short.MAX_VALUE))
+					.addGap(101))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(32, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(prompt1)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(prompt2)
+							.addGap(26)))
+					.addGap(22))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(64, Short.MAX_VALUE)
+					.addComponent(block223TitleLabel)
+					.addGap(53))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(31)
 					.addComponent(block223TitleLabel)
-					.addGap(37)
+					.addPreferredGap(ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(userNameTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(userNameLabel))
@@ -136,11 +166,15 @@ public class LoginPage extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(passwordTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(passwordLabel))
-					.addGap(42)
-					.addComponent(loginButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(55)
+					.addGap(28)
+					.addComponent(loginButton, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+					.addGap(28)
+					.addComponent(prompt1)
+					.addGap(13)
+					.addComponent(prompt2)
+					.addGap(32)
 					.addComponent(dontHaveAnAccountLabel)
-					.addGap(18)
+					.addGap(11)
 					.addComponent(signUpHereButton)
 					.addGap(9))
 		);

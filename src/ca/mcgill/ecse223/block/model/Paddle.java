@@ -6,7 +6,9 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 91 "../../../../../Block223Persistence.ump"
-// line 191 "../../../../../Block223.ump"
+// line 9 "../../../../../Block223Update.ump"
+// line 47 "../../../../../Block223StateMachine.ump"
+// line 208 "../../../../../Block223.ump"
 public class Paddle implements Serializable
 {
 
@@ -22,6 +24,8 @@ public class Paddle implements Serializable
   //------------------------
 
   //Paddle Attributes
+  private int paddleLength;
+  private int paddlePosition;
   private int maxPaddleLength;
   private int minPaddleLength;
 
@@ -32,18 +36,20 @@ public class Paddle implements Serializable
   // CONSTRUCTOR
   //------------------------
 
-  public Paddle(int aMaxPaddleLength, int aMinPaddleLength, Game aGame)
+  public Paddle(int aPaddleLength, int aPaddlePosition, int aMaxPaddleLength, int aMinPaddleLength, Game aGame)
   {
-    // line 196 "../../../../../Block223.ump"
-    if(aMaxPaddleLength <= 0 || aMaxPaddleLength > 400){
-       		throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
+    // line 213 "../../../../../Block223.ump"
+    if(aMaxPaddleLength <= 0 || aMaxPaddleLength > 390){
+       		throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
        	}
     // END OF UMPLE BEFORE INJECTION
-    // line 202 "../../../../../Block223.ump"
+    // line 219 "../../../../../Block223.ump"
     if(aMinPaddleLength <= 0){
-       		throw new RuntimeException("The minimum length of the paddle must be greater than zero");
+       		throw new RuntimeException("The minimum length of the paddle must be greater than zero.");
        	}
     // END OF UMPLE BEFORE INJECTION
+    paddleLength = aPaddleLength;
+    paddlePosition = aPaddlePosition;
     maxPaddleLength = aMaxPaddleLength;
     minPaddleLength = aMinPaddleLength;
     if (aGame == null || aGame.getPaddle() != null)
@@ -53,33 +59,51 @@ public class Paddle implements Serializable
     game = aGame;
   }
 
-  public Paddle(int aMaxPaddleLength, int aMinPaddleLength, String aNameForGame, int aNrBlocksPerLevelForGame, Admin aAdminForGame, Ball aBallForGame, Block223 aBlock223ForGame)
+  public Paddle(int aPaddleLength, int aPaddlePosition, int aMaxPaddleLength, int aMinPaddleLength, boolean aPublishedForGame, String aNameForGame, int aNrBlocksPerLevelForGame, HallOfFame aHallOfFameForGame, Admin aAdminForGame, Ball aBallForGame, Block223 aBlock223ForGame)
   {
-    // line 196 "../../../../../Block223.ump"
-    if(aMaxPaddleLength <= 0 || aMaxPaddleLength > 400){
-       		throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
+    // line 213 "../../../../../Block223.ump"
+    if(aMaxPaddleLength <= 0 || aMaxPaddleLength > 390){
+       		throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
        	}
     // END OF UMPLE BEFORE INJECTION
-    // line 202 "../../../../../Block223.ump"
+    // line 219 "../../../../../Block223.ump"
     if(aMinPaddleLength <= 0){
-       		throw new RuntimeException("The minimum length of the paddle must be greater than zero");
+       		throw new RuntimeException("The minimum length of the paddle must be greater than zero.");
        	}
     // END OF UMPLE BEFORE INJECTION
+    paddleLength = aPaddleLength;
+    paddlePosition = aPaddlePosition;
     maxPaddleLength = aMaxPaddleLength;
     minPaddleLength = aMinPaddleLength;
-    game = new Game(aNameForGame, aNrBlocksPerLevelForGame, aAdminForGame, aBallForGame, this, aBlock223ForGame);
+    game = new Game(aPublishedForGame, aNameForGame, aNrBlocksPerLevelForGame, aHallOfFameForGame, aAdminForGame, aBallForGame, this, aBlock223ForGame);
   }
 
   //------------------------
   // INTERFACE
   //------------------------
 
+  public boolean setPaddleLength(int aPaddleLength)
+  {
+    boolean wasSet = false;
+    paddleLength = aPaddleLength;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setPaddlePosition(int aPaddlePosition)
+  {
+    boolean wasSet = false;
+    paddlePosition = aPaddlePosition;
+    wasSet = true;
+    return wasSet;
+  }
+
   public boolean setMaxPaddleLength(int aMaxPaddleLength)
   {
     boolean wasSet = false;
-    // line 196 "../../../../../Block223.ump"
-    if(aMaxPaddleLength <= 0 || aMaxPaddleLength > 400){
-       		throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 400");
+    // line 213 "../../../../../Block223.ump"
+    if(aMaxPaddleLength <= 0 || aMaxPaddleLength > 390){
+       		throw new RuntimeException("The maximum length of the paddle must be greater than zero and less than or equal to 390.");
        	}
     // END OF UMPLE BEFORE INJECTION
     maxPaddleLength = aMaxPaddleLength;
@@ -90,14 +114,24 @@ public class Paddle implements Serializable
   public boolean setMinPaddleLength(int aMinPaddleLength)
   {
     boolean wasSet = false;
-    // line 202 "../../../../../Block223.ump"
+    // line 219 "../../../../../Block223.ump"
     if(aMinPaddleLength <= 0){
-       		throw new RuntimeException("The minimum length of the paddle must be greater than zero");
+       		throw new RuntimeException("The minimum length of the paddle must be greater than zero.");
        	}
     // END OF UMPLE BEFORE INJECTION
     minPaddleLength = aMinPaddleLength;
     wasSet = true;
     return wasSet;
+  }
+
+  public int getPaddleLength()
+  {
+    return paddleLength;
+  }
+
+  public int getPaddlePosition()
+  {
+    return paddlePosition;
   }
 
   public int getMaxPaddleLength()
@@ -129,6 +163,8 @@ public class Paddle implements Serializable
   public String toString()
   {
     return super.toString() + "["+
+            "paddleLength" + ":" + getPaddleLength()+ "," +
+            "paddlePosition" + ":" + getPaddlePosition()+ "," +
             "maxPaddleLength" + ":" + getMaxPaddleLength()+ "," +
             "minPaddleLength" + ":" + getMinPaddleLength()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null");

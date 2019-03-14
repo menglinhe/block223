@@ -6,7 +6,9 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 46 "../../../../../Block223Persistence.ump"
-// line 53 "../../../../../Block223.ump"
+// line 3 "../../../../../Block223Update.ump"
+// line 51 "../../../../../Block223StateMachine.ump"
+// line 56 "../../../../../Block223.ump"
 public class Game implements Serializable
 {
 
@@ -35,10 +37,13 @@ public class Game implements Serializable
   //------------------------
 
   //Game Attributes
+  private boolean published;
   private String name;
   private int nrBlocksPerLevel;
 
   //Game Associations
+  private HallOfFame hallOfFame;
+  private List<CurrentGame> currentGames;
   private Admin admin;
   private List<Block> blocks;
   private List<Level> levels;
@@ -51,23 +56,35 @@ public class Game implements Serializable
   // CONSTRUCTOR
   //------------------------
 
-  public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
+  public Game(boolean aPublished, String aName, int aNrBlocksPerLevel, HallOfFame aHallOfFame, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
-    // line 62 "../../../../../Block223.ump"
+    // line 65 "../../../../../Block223.ump"
+    if(aBlock223.findGame(aName) != null) {
+        	throw new RuntimeException("The name of a game must be unique.");
+        }
+    // END OF UMPLE BEFORE INJECTION
+    // line 70 "../../../../../Block223.ump"
     if(aName == null || aName.length() == 0){
-       		throw new RuntimeException("The name of a game must be specified");
+       		throw new RuntimeException("The name of a game must be specified.");
        	}
     // END OF UMPLE BEFORE INJECTION
-    // line 68 "../../../../../Block223.ump"
+    // line 76 "../../../../../Block223.ump"
     if(aNrBlocksPerLevel <= 0){
-       		throw new RuntimeException("The number of blocks per level must be greater than zero");
+       		throw new RuntimeException("The number of blocks per level must be greater than zero.");
        	}
     // END OF UMPLE BEFORE INJECTION
+    published = aPublished;
     nrBlocksPerLevel = aNrBlocksPerLevel;
     if (!setName(aName))
     {
       throw new RuntimeException("Cannot create due to duplicate name");
     }
+    if (aHallOfFame == null || aHallOfFame.getGame() != null)
+    {
+      throw new RuntimeException("Unable to create Game due to aHallOfFame");
+    }
+    hallOfFame = aHallOfFame;
+    currentGames = new ArrayList<CurrentGame>();
     boolean didAddAdmin = setAdmin(aAdmin);
     if (!didAddAdmin)
     {
@@ -93,20 +110,28 @@ public class Game implements Serializable
     }
   }
 
-  public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
+  public Game(boolean aPublished, String aName, int aNrBlocksPerLevel, Admin aAdmin, int aXSpeedForBall, int aYSpeedForBall, int aXPositionForBall, int aYPositionForBall, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aPaddleLengthForPaddle, int aPaddlePositionForPaddle, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
-    // line 62 "../../../../../Block223.ump"
+    // line 65 "../../../../../Block223.ump"
+    if(aBlock223.findGame(aName) != null) {
+        	throw new RuntimeException("The name of a game must be unique.");
+        }
+    // END OF UMPLE BEFORE INJECTION
+    // line 70 "../../../../../Block223.ump"
     if(aName == null || aName.length() == 0){
-       		throw new RuntimeException("The name of a game must be specified");
+       		throw new RuntimeException("The name of a game must be specified.");
        	}
     // END OF UMPLE BEFORE INJECTION
-    // line 68 "../../../../../Block223.ump"
+    // line 76 "../../../../../Block223.ump"
     if(aNrBlocksPerLevel <= 0){
-       		throw new RuntimeException("The number of blocks per level must be greater than zero");
+       		throw new RuntimeException("The number of blocks per level must be greater than zero.");
        	}
     // END OF UMPLE BEFORE INJECTION
+    published = aPublished;
     name = aName;
     nrBlocksPerLevel = aNrBlocksPerLevel;
+    hallOfFame = new HallOfFame(this);
+    currentGames = new ArrayList<CurrentGame>();
     boolean didAddAdmin = setAdmin(aAdmin);
     if (!didAddAdmin)
     {
@@ -115,8 +140,8 @@ public class Game implements Serializable
     blocks = new ArrayList<Block>();
     levels = new ArrayList<Level>();
     blockAssignments = new ArrayList<BlockAssignment>();
-    ball = new Ball(aMinBallSpeedXForBall, aMinBallSpeedYForBall, aBallSpeedIncreaseFactorForBall, this);
-    paddle = new Paddle(aMaxPaddleLengthForPaddle, aMinPaddleLengthForPaddle, this);
+    ball = new Ball(aXSpeedForBall, aYSpeedForBall, aXPositionForBall, aYPositionForBall, aMinBallSpeedXForBall, aMinBallSpeedYForBall, aBallSpeedIncreaseFactorForBall, this);
+    paddle = new Paddle(aPaddleLengthForPaddle, aPaddlePositionForPaddle, aMaxPaddleLengthForPaddle, aMinPaddleLengthForPaddle, this);
     boolean didAddBlock223 = setBlock223(aBlock223);
     if (!didAddBlock223)
     {
@@ -128,12 +153,20 @@ public class Game implements Serializable
   // INTERFACE
   //------------------------
 
+  public boolean setPublished(boolean aPublished)
+  {
+    boolean wasSet = false;
+    published = aPublished;
+    wasSet = true;
+    return wasSet;
+  }
+
   public boolean setName(String aName)
   {
     boolean wasSet = false;
-    // line 62 "../../../../../Block223.ump"
+    // line 70 "../../../../../Block223.ump"
     if(aName == null || aName.length() == 0){
-       		throw new RuntimeException("The name of a game must be specified");
+       		throw new RuntimeException("The name of a game must be specified.");
        	}
     // END OF UMPLE BEFORE INJECTION
     String anOldName = getName();
@@ -152,14 +185,29 @@ public class Game implements Serializable
   public boolean setNrBlocksPerLevel(int aNrBlocksPerLevel)
   {
     boolean wasSet = false;
-    // line 68 "../../../../../Block223.ump"
+    // line 76 "../../../../../Block223.ump"
     if(aNrBlocksPerLevel <= 0){
-       		throw new RuntimeException("The number of blocks per level must be greater than zero");
+       		throw new RuntimeException("The number of blocks per level must be greater than zero.");
        	}
+    // END OF UMPLE BEFORE INJECTION
+    // line 81 "../../../../../Block223.ump"
+    if(hasLevels()) {
+        	List<Level> levels = getLevels();
+        	for (Level level : levels) {
+        		if (level.numberOfBlockAssignments() > aNrBlocksPerLevel) {
+        			throw new RuntimeException("The maximum number of blocks per level cannot be less than the number of existing blocks in a level.");
+        		}
+        	}
+        }
     // END OF UMPLE BEFORE INJECTION
     nrBlocksPerLevel = aNrBlocksPerLevel;
     wasSet = true;
     return wasSet;
+  }
+
+  public boolean getPublished()
+  {
+    return published;
   }
 
   public String getName()
@@ -180,6 +228,46 @@ public class Game implements Serializable
   public int getNrBlocksPerLevel()
   {
     return nrBlocksPerLevel;
+  }
+  /* Code from template attribute_IsBoolean */
+  public boolean isPublished()
+  {
+    return published;
+  }
+  /* Code from template association_GetOne */
+  public HallOfFame getHallOfFame()
+  {
+    return hallOfFame;
+  }
+  /* Code from template association_GetMany */
+  public CurrentGame getCurrentGame(int index)
+  {
+    CurrentGame aCurrentGame = currentGames.get(index);
+    return aCurrentGame;
+  }
+
+  public List<CurrentGame> getCurrentGames()
+  {
+    List<CurrentGame> newCurrentGames = Collections.unmodifiableList(currentGames);
+    return newCurrentGames;
+  }
+
+  public int numberOfCurrentGames()
+  {
+    int number = currentGames.size();
+    return number;
+  }
+
+  public boolean hasCurrentGames()
+  {
+    boolean has = currentGames.size() > 0;
+    return has;
+  }
+
+  public int indexOfCurrentGame(CurrentGame aCurrentGame)
+  {
+    int index = currentGames.indexOf(aCurrentGame);
+    return index;
   }
   /* Code from template association_GetOne */
   public Admin getAdmin()
@@ -219,9 +307,9 @@ public class Game implements Serializable
   /* Code from template association_GetMany */
   public Level getLevel(int index)
   {
-    // line 74 "../../../../../Block223.ump"
-    if(index < 1 || index > numberOfLevels()){
-       		throw new IndexOutOfBoundsException("Level " + index + " does not exist for the game.");
+    // line 91 "../../../../../Block223.ump"
+    if(index < 0 || index > numberOfLevels() - 1) {
+       		throw new IndexOutOfBoundsException("Level " + (index + 1) + " does not exist for the game.");
        	}
     // END OF UMPLE BEFORE INJECTION
     Level aLevel = levels.get(index);
@@ -295,6 +383,78 @@ public class Game implements Serializable
   public Block223 getBlock223()
   {
     return block223;
+  }
+  /* Code from template association_MinimumNumberOfMethod */
+  public static int minimumNumberOfCurrentGames()
+  {
+    return 0;
+  }
+  /* Code from template association_AddManyToOne */
+  public CurrentGame addCurrentGame(int aLifeRemaining, int aCurrentScore, Player aPlayer)
+  {
+    return new CurrentGame(aLifeRemaining, aCurrentScore, this, aPlayer);
+  }
+
+  public boolean addCurrentGame(CurrentGame aCurrentGame)
+  {
+    boolean wasAdded = false;
+    if (currentGames.contains(aCurrentGame)) { return false; }
+    Game existingGame = aCurrentGame.getGame();
+    boolean isNewGame = existingGame != null && !this.equals(existingGame);
+    if (isNewGame)
+    {
+      aCurrentGame.setGame(this);
+    }
+    else
+    {
+      currentGames.add(aCurrentGame);
+    }
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removeCurrentGame(CurrentGame aCurrentGame)
+  {
+    boolean wasRemoved = false;
+    //Unable to remove aCurrentGame, as it must always have a game
+    if (!this.equals(aCurrentGame.getGame()))
+    {
+      currentGames.remove(aCurrentGame);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+  /* Code from template association_AddIndexControlFunctions */
+  public boolean addCurrentGameAt(CurrentGame aCurrentGame, int index)
+  {  
+    boolean wasAdded = false;
+    if(addCurrentGame(aCurrentGame))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfCurrentGames()) { index = numberOfCurrentGames() - 1; }
+      currentGames.remove(aCurrentGame);
+      currentGames.add(index, aCurrentGame);
+      wasAdded = true;
+    }
+    return wasAdded;
+  }
+
+  public boolean addOrMoveCurrentGameAt(CurrentGame aCurrentGame, int index)
+  {
+    boolean wasAdded = false;
+    if(currentGames.contains(aCurrentGame))
+    {
+      if(index < 0 ) { index = 0; }
+      if(index > numberOfCurrentGames()) { index = numberOfCurrentGames() - 1; }
+      currentGames.remove(aCurrentGame);
+      currentGames.add(index, aCurrentGame);
+      wasAdded = true;
+    } 
+    else 
+    {
+      wasAdded = addCurrentGameAt(aCurrentGame, index);
+    }
+    return wasAdded;
   }
   /* Code from template association_SetOneToMany */
   public boolean setAdmin(Admin aAdmin)
@@ -590,6 +750,17 @@ public class Game implements Serializable
   public void delete()
   {
     gamesByName.remove(getName());
+    HallOfFame existingHallOfFame = hallOfFame;
+    hallOfFame = null;
+    if (existingHallOfFame != null)
+    {
+      existingHallOfFame.delete();
+    }
+    for(int i=currentGames.size(); i > 0; i--)
+    {
+      CurrentGame aCurrentGame = currentGames.get(i - 1);
+      aCurrentGame.delete();
+    }
     Admin placeholderAdmin = admin;
     this.admin = null;
     if(placeholderAdmin != null)
@@ -645,7 +816,7 @@ public class Game implements Serializable
 	      }
   }
 
-  // line 87 "../../../../../Block223.ump"
+  // line 104 "../../../../../Block223.ump"
    public Block findBlock(int id){
     List<Block> blocks = getBlocks();
    	for(Block block: blocks){
@@ -660,8 +831,10 @@ public class Game implements Serializable
   public String toString()
   {
     return super.toString() + "["+
+            "published" + ":" + getPublished()+ "," +
             "name" + ":" + getName()+ "," +
             "nrBlocksPerLevel" + ":" + getNrBlocksPerLevel()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "hallOfFame = "+(getHallOfFame()!=null?Integer.toHexString(System.identityHashCode(getHallOfFame())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "admin = "+(getAdmin()!=null?Integer.toHexString(System.identityHashCode(getAdmin())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "ball = "+(getBall()!=null?Integer.toHexString(System.identityHashCode(getBall())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "paddle = "+(getPaddle()!=null?Integer.toHexString(System.identityHashCode(getPaddle())):"null") + System.getProperties().getProperty("line.separator") +

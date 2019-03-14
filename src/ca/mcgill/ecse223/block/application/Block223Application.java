@@ -22,7 +22,6 @@ public class Block223Application {
                     e.printStackTrace();
                   }
                 new Block223Page().setVisible(true);
-
             }
         });
 	}
@@ -37,6 +36,10 @@ public class Block223Application {
 	
 	// forces a load from the file and return the root block223 object
 	public static Block223 resetBlock223() {
+		if (block223 != null) {
+			block223.delete();
+		}
+		setCurrentGame(null);
 		block223 = Block223Persistence.load();
 		return block223;
 	}

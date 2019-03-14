@@ -5,7 +5,7 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 
 // line 79 "../../../../../Block223Persistence.ump"
-// line 149 "../../../../../Block223.ump"
+// line 166 "../../../../../Block223.ump"
 public class BlockAssignment implements Serializable
 {
 
@@ -13,8 +13,8 @@ public class BlockAssignment implements Serializable
   // STATIC VARIABLES
   //------------------------
 
-  public static final int MAX_NR_HORZ_BLOCKS = (Game.PLAY_AREA_SIDE - (2 * Game.WALL_PADDING) - Game.COLUMNS_PADDING) / (Game.COLUMNS_PADDING + Block.SIZE);
-  public static final int MAX_NR_VERT_BLOCKS = (Game.PLAY_AREA_SIDE - (2 * Game.WALL_PADDING) - Game.ROW_PADDING - Paddle.VERTICAL_DISTANCE - Paddle.PADDLE_WIDTH - Ball.BALL_DIAMETER) / (Game.ROW_PADDING + Block.SIZE);
+  public static final int MAX_NR_HORZ_BLOCKS = (int) (Game.PLAY_AREA_SIDE - (2 * Game.WALL_PADDING) + Game.COLUMNS_PADDING) / (Game.COLUMNS_PADDING + Block.SIZE);
+  public static final int MAX_NR_VERT_BLOCKS = (int) (Game.PLAY_AREA_SIDE - Game.WALL_PADDING + Game.ROW_PADDING - Paddle.VERTICAL_DISTANCE - Paddle.PADDLE_WIDTH - Ball.BALL_DIAMETER) / (Game.ROW_PADDING + Block.SIZE);
 
   //------------------------
   // MEMBER VARIABLES
@@ -35,13 +35,13 @@ public class BlockAssignment implements Serializable
 
   public BlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Level aLevel, Block aBlock, Game aGame)
   {
-    // line 158 "../../../../../Block223.ump"
-    if (gridHorizontalPosition <= 0 || gridHorizontalPosition > MAX_NR_HORZ_BLOCKS) {
+    // line 175 "../../../../../Block223.ump"
+    if (aGridHorizontalPosition < 1 || aGridHorizontalPosition > MAX_NR_HORZ_BLOCKS) {
         	throw new RuntimeException("The horizontal position must be between 1 and " + MAX_NR_HORZ_BLOCKS + ".");
         	}
     // END OF UMPLE BEFORE INJECTION
-    // line 163 "../../../../../Block223.ump"
-    if (gridVerticalPosition <= 0 || gridVerticalPosition > MAX_NR_VERT_BLOCKS) {
+    // line 180 "../../../../../Block223.ump"
+    if (aGridVerticalPosition < 1 || aGridVerticalPosition > MAX_NR_VERT_BLOCKS) {
         	throw new RuntimeException("The vertical position must be between 1 and " + MAX_NR_VERT_BLOCKS + ".");    	
         	}
     // END OF UMPLE BEFORE INJECTION
@@ -71,8 +71,8 @@ public class BlockAssignment implements Serializable
   public boolean setGridHorizontalPosition(int aGridHorizontalPosition)
   {
     boolean wasSet = false;
-    // line 158 "../../../../../Block223.ump"
-    if (gridHorizontalPosition <= 0 || gridHorizontalPosition > MAX_NR_HORZ_BLOCKS) {
+    // line 175 "../../../../../Block223.ump"
+    if (aGridHorizontalPosition < 1 || aGridHorizontalPosition > MAX_NR_HORZ_BLOCKS) {
         	throw new RuntimeException("The horizontal position must be between 1 and " + MAX_NR_HORZ_BLOCKS + ".");
         	}
     // END OF UMPLE BEFORE INJECTION
@@ -84,8 +84,8 @@ public class BlockAssignment implements Serializable
   public boolean setGridVerticalPosition(int aGridVerticalPosition)
   {
     boolean wasSet = false;
-    // line 163 "../../../../../Block223.ump"
-    if (gridVerticalPosition <= 0 || gridVerticalPosition > MAX_NR_VERT_BLOCKS) {
+    // line 180 "../../../../../Block223.ump"
+    if (aGridVerticalPosition < 1 || aGridVerticalPosition > MAX_NR_VERT_BLOCKS) {
         	throw new RuntimeException("The vertical position must be between 1 and " + MAX_NR_VERT_BLOCKS + ".");    	
         	}
     // END OF UMPLE BEFORE INJECTION
