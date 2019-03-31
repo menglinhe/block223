@@ -11,6 +11,7 @@ public class Block223Application {
 	private static Block223 block223;
 	private static UserRole currentUserRole;
 	private static Game currentGame;
+	private static PlayedGame currentPlayableGame;
 	
 	public static void main(String[] args) {
 	// start UI
@@ -40,6 +41,7 @@ public class Block223Application {
 			block223.delete();
 		}
 		setCurrentGame(null);
+		setCurrentPlayableGame(null);
 		block223 = Block223Persistence.load();
 		return block223;
 	}
@@ -64,6 +66,14 @@ public class Block223Application {
 	// return the current game
 	public static Game getCurrentGame() {
 		return currentGame;
+	}
+	
+	public static void setCurrentPlayableGame(PlayedGame aGame) {
+		currentPlayableGame = aGame;
+	}
+
+	public static PlayedGame getCurrentPlayableGame() {
+		return currentPlayableGame;
 	}
 		
 }

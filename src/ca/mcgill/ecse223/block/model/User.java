@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.*;
 
 // line 16 "../../../../../Block223Persistence.ump"
-// line 26 "../../../../../Block223.ump"
+// line 33 "../../../../../Block223.ump"
 public class User implements Serializable
 {
 
@@ -33,7 +33,7 @@ public class User implements Serializable
 
   public User(String aUsername, Block223 aBlock223, UserRole... allRoles)
   {
-    // line 31 "../../../../../Block223.ump"
+    // line 38 "../../../../../Block223.ump"
     if (aUsername == null || aUsername.length() == 0) {
        		throw new RuntimeException("The username must be specified.");
        	}
@@ -62,7 +62,7 @@ public class User implements Serializable
   public boolean setUsername(String aUsername)
   {
     boolean wasSet = false;
-    // line 31 "../../../../../Block223.ump"
+    // line 38 "../../../../../Block223.ump"
     if (aUsername == null || aUsername.length() == 0) {
        		throw new RuntimeException("The username must be specified.");
        	}
@@ -263,6 +263,19 @@ public class User implements Serializable
 	  for (User user : users) {
 	      usersByUsername.put(user.getUsername(), user);
 	      }
+  }
+
+  // line 44 "../../../../../Block223.ump"
+   public static  String findUsername(UserRole ur){
+    for (String username : usersByUsername.keySet())
+	    {
+		   User value = usersByUsername.get(username);
+		   for(UserRole role : value.roles)
+		   {
+			   if(ur == role) return username;
+		   }
+	    }
+	    return null;
   }
 
 

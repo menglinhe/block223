@@ -6,13 +6,15 @@ import java.awt.*;
 import ca.mcgill.ecse223.block.controller.*;
 import javax.swing.border.MatteBorder;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 // Note : need method refresh data
 
-public class Block223Page extends JFrame {
+public class Block223Page extends JFrame implements Block223PlayModeInterface {
 	
 	private static final long serialVersionUID = -5468712039074806735L;
 
@@ -83,7 +85,7 @@ public class Block223Page extends JFrame {
 		hallOfFameLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
 		GroupLayout gl_rightMenuPanel = new GroupLayout(rightMenuPanel);
 		gl_rightMenuPanel.setHorizontalGroup(
-			gl_rightMenuPanel.createParallelGroup(Alignment.LEADING)
+			gl_rightMenuPanel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_rightMenuPanel.createSequentialGroup()
 					.addGroup(gl_rightMenuPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_rightMenuPanel.createSequentialGroup()
@@ -155,11 +157,39 @@ public class Block223Page extends JFrame {
 				System.exit(0);
 			}
 		});
+		
+		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+			@Override
+			public boolean dispatchKeyEvent(KeyEvent e) {
+				if (e.getID() == KeyEvent.KEY_RELEASED) {
+					if ((e.getKeyChar() == 'l') || (e.getKeyChar() == 'r') || (e.getKeyChar() == ' ')) {
+						System.out.println(e.getKeyChar());
+						userInputs += e.getKeyChar();
+					}
+				}
+				return false;
+			}
+		});
 	}
 	
 	// refreshData() method 
 	
 	private void mainWindowRefreshData() {
+		
+	}
+
+	private String userInputs = "";
+	
+	@Override
+	public String takeInputs() {
+		String returnInput = new String(userInputs);
+		userInputs = "";
+		return returnInput;
+	}
+	
+	@Override
+	public void refresh() {
+		// TODO Auto-generated method stub
 		
 	}
 }

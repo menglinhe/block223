@@ -1,9 +1,8 @@
 namespace ca.mcgill.ecse223.block.model;
 
+use Block223PlayMode.ump;
 use Block223Persistence.ump;
-use Block223Update.ump;
-use Block223StateMachine.ump;
-use Block223TransferObjects;
+use Block223States.ump;
 
 class Block223 {
    1 <@>- * User users;
@@ -21,6 +20,14 @@ class Block223 {
       }
       return null;
     }
+   public PlayedGame findPlayableGame(int id) {
+		for (PlayedGame game : playedGames) {
+			if (game.getId() == id) {
+				return game;
+			}
+		}
+	    return null;
+	}	
 }
 
 class User {
@@ -32,6 +39,18 @@ class User {
    		throw new RuntimeException("The username must be specified.");
    	}
    }
+   
+   	public static String findUsername(UserRole ur) {
+		for (String username : usersByUsername.keySet())
+	    {
+		   User value = usersByUsername.get(username);
+		   for(UserRole role : value.roles)
+		   {
+			   if(ur == role) return username;
+		   }
+	    }
+	    return null;
+	}
 }
 
 class UserRole {

@@ -2,9 +2,11 @@
 /*This code was generated using the UMPLE 1.29.0.4181.a593105a9 modeling language!*/
 
 package ca.mcgill.ecse223.block.model;
+import java.io.Serializable;
 
-// line 37 "../../../../../Block223Update.ump"
-public class HallOfFameEntry
+// line 78 "../../../../../Block223PlayMode.ump"
+// line 109 "../../../../../Block223Persistence.ump"
+public class HallOfFameEntry implements Serializable
 {
 
   //------------------------
@@ -12,24 +14,36 @@ public class HallOfFameEntry
   //------------------------
 
   //HallOfFameEntry Attributes
-  private String playerName;
-  private int highScore;
+  private int score;
+  private String playername;
 
   //HallOfFameEntry Associations
-  private HallOfFame hallOfFame;
+  private Player player;
+  private Game game;
+  private Block223 block223;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public HallOfFameEntry(String aPlayerName, int aHighScore, HallOfFame aHallOfFame)
+  public HallOfFameEntry(int aScore, String aPlayername, Player aPlayer, Game aGame, Block223 aBlock223)
   {
-    playerName = aPlayerName;
-    highScore = aHighScore;
-    boolean didAddHallOfFame = setHallOfFame(aHallOfFame);
-    if (!didAddHallOfFame)
+    score = aScore;
+    playername = aPlayername;
+    boolean didAddPlayer = setPlayer(aPlayer);
+    if (!didAddPlayer)
     {
-      throw new RuntimeException("Unable to create entry due to hallOfFame");
+      throw new RuntimeException("Unable to create hallOfFameEntry due to player");
+    }
+    boolean didAddGame = setGame(aGame);
+    if (!didAddGame)
+    {
+      throw new RuntimeException("Unable to create hallOfFameEntry due to game");
+    }
+    boolean didAddBlock223 = setBlock223(aBlock223);
+    if (!didAddBlock223)
+    {
+      throw new RuntimeException("Unable to create entry due to block223");
     }
   }
 
@@ -37,63 +51,126 @@ public class HallOfFameEntry
   // INTERFACE
   //------------------------
 
-  public boolean setPlayerName(String aPlayerName)
+  public boolean setScore(int aScore)
   {
     boolean wasSet = false;
-    playerName = aPlayerName;
+    score = aScore;
     wasSet = true;
     return wasSet;
   }
 
-  public boolean setHighScore(int aHighScore)
+  public boolean setPlayername(String aPlayername)
   {
     boolean wasSet = false;
-    highScore = aHighScore;
+    playername = aPlayername;
     wasSet = true;
     return wasSet;
   }
 
-  public String getPlayerName()
+  public int getScore()
   {
-    return playerName;
+    return score;
   }
 
-  public int getHighScore()
+  /**
+   * added here so that it only needs to be determined once
+   */
+  public String getPlayername()
   {
-    return highScore;
+    return playername;
   }
   /* Code from template association_GetOne */
-  public HallOfFame getHallOfFame()
+  public Player getPlayer()
   {
-    return hallOfFame;
+    return player;
+  }
+  /* Code from template association_GetOne */
+  public Game getGame()
+  {
+    return game;
+  }
+  /* Code from template association_GetOne */
+  public Block223 getBlock223()
+  {
+    return block223;
   }
   /* Code from template association_SetOneToMany */
-  public boolean setHallOfFame(HallOfFame aHallOfFame)
+  public boolean setPlayer(Player aPlayer)
   {
     boolean wasSet = false;
-    if (aHallOfFame == null)
+    if (aPlayer == null)
     {
       return wasSet;
     }
 
-    HallOfFame existingHallOfFame = hallOfFame;
-    hallOfFame = aHallOfFame;
-    if (existingHallOfFame != null && !existingHallOfFame.equals(aHallOfFame))
+    Player existingPlayer = player;
+    player = aPlayer;
+    if (existingPlayer != null && !existingPlayer.equals(aPlayer))
     {
-      existingHallOfFame.removeEntry(this);
+      existingPlayer.removeHallOfFameEntry(this);
     }
-    hallOfFame.addEntry(this);
+    player.addHallOfFameEntry(this);
+    wasSet = true;
+    return wasSet;
+  }
+  /* Code from template association_SetOneToMany */
+  public boolean setGame(Game aGame)
+  {
+    boolean wasSet = false;
+    if (aGame == null)
+    {
+      return wasSet;
+    }
+
+    Game existingGame = game;
+    game = aGame;
+    if (existingGame != null && !existingGame.equals(aGame))
+    {
+      existingGame.removeHallOfFameEntry(this);
+    }
+    game.addHallOfFameEntry(this);
+    wasSet = true;
+    return wasSet;
+  }
+  /* Code from template association_SetOneToMany */
+  public boolean setBlock223(Block223 aBlock223)
+  {
+    boolean wasSet = false;
+    if (aBlock223 == null)
+    {
+      return wasSet;
+    }
+
+    Block223 existingBlock223 = block223;
+    block223 = aBlock223;
+    if (existingBlock223 != null && !existingBlock223.equals(aBlock223))
+    {
+      existingBlock223.removeEntry(this);
+    }
+    block223.addEntry(this);
     wasSet = true;
     return wasSet;
   }
 
   public void delete()
   {
-    HallOfFame placeholderHallOfFame = hallOfFame;
-    this.hallOfFame = null;
-    if(placeholderHallOfFame != null)
+    Player placeholderPlayer = player;
+    this.player = null;
+    if(placeholderPlayer != null)
     {
-      placeholderHallOfFame.removeEntry(this);
+      placeholderPlayer.removeHallOfFameEntry(this);
+    }
+    Game placeholderGame = game;
+    this.game = null;
+    if(placeholderGame != null)
+    {
+      placeholderGame.removeHallOfFameEntry(this);
+    }
+    Block223 placeholderBlock223 = block223;
+    this.block223 = null;
+    if(placeholderBlock223 != null)
+    {
+      placeholderBlock223.removeEntry(this);
     }
   }
 
@@ -101,8 +178,18 @@ public class HallOfFameEntry
   public String toString()
   {
     return super.toString() + "["+
-            "playerName" + ":" + getPlayerName()+ "," +
-            "highScore" + ":" + getHighScore()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "hallOfFame = "+(getHallOfFame()!=null?Integer.toHexString(System.identityHashCode(getHallOfFame())):"null");
-  }
+            "score" + ":" + getScore()+ "," +
+            "playername" + ":" + getPlayername()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "player = "+(getPlayer()!=null?Integer.toHexString(System.identityHashCode(getPlayer())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "game = "+(getGame()!=null?Integer.toHexString(System.identityHashCode(getGame())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "block223 = "+(getBlock223()!=null?Integer.toHexString(System.identityHashCode(getBlock223())):"null");
+  }  
+  //------------------------
+  // DEVELOPER CODE - PROVIDED AS-IS
+  //------------------------
+  
+  // line 112 "../../../../../Block223Persistence.ump"
+  private static final long serialVersionUID = 14L ;
+
+  
 }

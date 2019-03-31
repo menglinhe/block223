@@ -74,7 +74,7 @@ public class BlockSettings extends JFrame {
 	 * Create the frame.
 	 */
 	public BlockSettings() {
-		
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 900, 440);
 		contentPane = new JPanel();
@@ -82,30 +82,30 @@ public class BlockSettings extends JFrame {
 		setContentPane(contentPane);
 		setTitle("Block settings");
 		setResizable(false);
-		
-        AbstractColorChooserPanel[] panelsCreate = colorChooserCreateBlock.getChooserPanels();
-        for (AbstractColorChooserPanel x : panelsCreate) {
-        	if (!(x.getDisplayName().equals("RGB"))) {
-        		colorChooserCreateBlock.removeChooserPanel(x);
-        	}
-        }
-        
-        AbstractColorChooserPanel[] panelsUpdate = colorChooserUpdateBlock.getChooserPanels();
-        for (AbstractColorChooserPanel x : panelsUpdate) {
-        	if (!(x.getDisplayName().equals("RGB"))) {
-        		colorChooserUpdateBlock.removeChooserPanel(x);
-        	}
-        }
+
+		AbstractColorChooserPanel[] panelsCreate = colorChooserCreateBlock.getChooserPanels();
+		for (AbstractColorChooserPanel x : panelsCreate) {
+			if (!(x.getDisplayName().equals("RGB"))) {
+				colorChooserCreateBlock.removeChooserPanel(x);
+			}
+		}
+
+		AbstractColorChooserPanel[] panelsUpdate = colorChooserUpdateBlock.getChooserPanels();
+		for (AbstractColorChooserPanel x : panelsUpdate) {
+			if (!(x.getDisplayName().equals("RGB"))) {
+				colorChooserUpdateBlock.removeChooserPanel(x);
+			}
+		}
 
 		JLabel blockLivePositionLabel = new JLabel("Select a block to get its position.");
 		int selectedPos[] = new int[2];
-		
+
 		@SuppressWarnings("serial")
 		JTable gridTable = new JTable() {
 			@Override
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
 				Component comp = super.prepareRenderer(renderer, row, col);
-				
+
 				if ((col % 2 == 1) && (row % 2 == 1)) {
 					// get color of blocks and apply here
 					if ((selectedLevelBlocks != null)) {
@@ -132,7 +132,7 @@ public class BlockSettings extends JFrame {
 				else {
 					comp.setBackground(Color.WHITE);
 				}
-				
+
 				if (getSelectedRow() == row && getSelectedColumn() == col) {
 					if ((getColumnModel().getColumn(col).getWidth() == 20) && (getRowHeight(row) == 20)) {
 						comp.setBackground(Color.YELLOW);
@@ -167,50 +167,50 @@ public class BlockSettings extends JFrame {
 			}
 		});
 		gridTable.setFocusable(false);
-	    gridTable.setCellSelectionEnabled(false);
+		gridTable.setCellSelectionEnabled(false);
 		gridTable.setShowGrid(false);
 		gridTable.setRowSelectionAllowed(false);
 		gridTable.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		gridTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"left wall padding", "bc1", "padding", "bc2", "padding", "bc3", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
-			}
-		) {
+				new Object[][] {
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+					{null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+				},
+				new String[] {
+						"left wall padding", "bc1", "padding", "bc2", "padding", "bc3", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
+				}
+				) {
 			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+					false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
@@ -309,7 +309,7 @@ public class BlockSettings extends JFrame {
 		gridTable.getColumnModel().getColumn(30).setPreferredWidth(10);
 		gridTable.getColumnModel().getColumn(30).setMinWidth(10);
 		gridTable.getColumnModel().getColumn(30).setMaxWidth(10);
-		
+
 		gridTable.setRowHeight(0, 10);
 		gridTable.setRowHeight(1, 20);
 		gridTable.setRowHeight(2, 2);
@@ -341,95 +341,95 @@ public class BlockSettings extends JFrame {
 		gridTable.setRowHeight(28, 2);
 		gridTable.setRowHeight(29, 20);
 		gridTable.setRowHeight(30, 10);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBorder(null);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(null);
-		
+
 		JLabel deleteBlockFromLevelLabel = new JLabel("Delete a block from level:");
 		deleteBlockFromLevelLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		
+
 		JButton deleteFromGameButton = new JButton("Delete");
-		
+
 		JLabel deleteBlockFromGameLabel = new JLabel("Delete a block from game:");
 		deleteBlockFromGameLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		
+
 		JButton deleteFromLevelButton = new JButton("Delete");
-		
+
 		JLabel selectBlockFromGridToDeleteLabel = new JLabel("Select block from grid &");
-		
+
 		selectBlockToDeleteComboBox = new JComboBox<String>();
 		selectBlockToDeleteComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Select block"}));
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap(23, Short.MAX_VALUE)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING, false)
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(selectBlockToDeleteComboBox, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(deleteFromGameButton)
-							.addGap(24))
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(selectBlockFromGridToDeleteLabel, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(deleteFromLevelButton, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
-							.addGap(20))))
+						.addContainerGap(23, Short.MAX_VALUE)
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING, false)
+								.addGroup(gl_panel_1.createSequentialGroup()
+										.addComponent(selectBlockToDeleteComboBox, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(deleteFromGameButton)
+										.addGap(24))
+								.addGroup(gl_panel_1.createSequentialGroup()
+										.addComponent(selectBlockFromGridToDeleteLabel, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(deleteFromLevelButton, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+										.addGap(20))))
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(44)
-					.addComponent(deleteBlockFromLevelLabel)
-					.addContainerGap(44, Short.MAX_VALUE))
+						.addGap(44)
+						.addComponent(deleteBlockFromLevelLabel)
+						.addContainerGap(44, Short.MAX_VALUE))
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(41)
-					.addComponent(deleteBlockFromGameLabel)
-					.addContainerGap(45, Short.MAX_VALUE))
-		);
+						.addGap(41)
+						.addComponent(deleteBlockFromGameLabel)
+						.addContainerGap(45, Short.MAX_VALUE))
+				);
 		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.TRAILING)
+				gl_panel_1.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(deleteBlockFromLevelLabel)
-					.addGap(11)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(deleteFromLevelButton)
-						.addComponent(selectBlockFromGridToDeleteLabel))
-					.addPreferredGap(ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-					.addComponent(deleteBlockFromGameLabel)
-					.addGap(18)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(deleteFromGameButton)
-						.addComponent(selectBlockToDeleteComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18))
-		);
+						.addContainerGap()
+						.addComponent(deleteBlockFromLevelLabel)
+						.addGap(11)
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+								.addComponent(deleteFromLevelButton)
+								.addComponent(selectBlockFromGridToDeleteLabel))
+						.addPreferredGap(ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+						.addComponent(deleteBlockFromGameLabel)
+						.addGap(18)
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+								.addComponent(deleteFromGameButton)
+								.addComponent(selectBlockToDeleteComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(18))
+				);
 		panel_1.setLayout(gl_panel_1);
-		
+
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(null);
-		
+
 		JButton updateColorButton = new JButton("Choose the color");
-		
+
 		updateColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			        JDialog dialog = new JDialog();
-					dialog.setTitle("Choose the color");
-					dialog.setContentPane(colorChooserUpdateBlock);
-					dialog.pack();
-					dialog.setVisible(true);
+				JDialog dialog = new JDialog();
+				dialog.setTitle("Choose the color");
+				dialog.setContentPane(colorChooserUpdateBlock);
+				dialog.pack();
+				dialog.setVisible(true);
 			}
 		});
-		
-		
+
+
 		JLabel updateASelectedBlockLabel = new JLabel("Update a selected block:");
 		updateASelectedBlockLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		
+
 		JLabel updatePointsLabel = new JLabel("Points :");
-		
+
 		updatePointsTxt = new JTextField();
 		updatePointsTxt.setColumns(10);
-		
+
 		JButton updateButton = new JButton("Update");
 		updateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -454,55 +454,55 @@ public class BlockSettings extends JFrame {
 		});
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.TRAILING)
+				gl_panel_2.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(59)
-					.addComponent(updateColorButton)
-					.addContainerGap(59, Short.MAX_VALUE))
+						.addGap(59)
+						.addComponent(updateColorButton)
+						.addContainerGap(59, Short.MAX_VALUE))
 				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(78)
-					.addComponent(updatePointsLabel)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(updatePointsTxt, 0, 0, Short.MAX_VALUE)
-					.addGap(78))
+						.addGap(78)
+						.addComponent(updatePointsLabel)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(updatePointsTxt, 0, 0, Short.MAX_VALUE)
+						.addGap(78))
 				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(83)
-					.addComponent(updateButton)
-					.addContainerGap(81, Short.MAX_VALUE))
+						.addGap(83)
+						.addComponent(updateButton)
+						.addContainerGap(81, Short.MAX_VALUE))
 				.addGroup(Alignment.LEADING, gl_panel_2.createSequentialGroup()
-					.addGap(46)
-					.addComponent(updateASelectedBlockLabel)
-					.addContainerGap(47, Short.MAX_VALUE))
-		);
+						.addGap(46)
+						.addComponent(updateASelectedBlockLabel)
+						.addContainerGap(47, Short.MAX_VALUE))
+				);
 		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(updateASelectedBlockLabel)
-					.addGap(18)
-					.addComponent(updateColorButton)
-					.addGap(18)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-						.addComponent(updatePointsTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panel_2.createSequentialGroup()
-							.addGap(3)
-							.addComponent(updatePointsLabel)))
-					.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-					.addComponent(updateButton)
-					.addGap(18))
-		);
+						.addContainerGap()
+						.addComponent(updateASelectedBlockLabel)
+						.addGap(18)
+						.addComponent(updateColorButton)
+						.addGap(18)
+						.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+								.addComponent(updatePointsTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panel_2.createSequentialGroup()
+										.addGap(3)
+										.addComponent(updatePointsLabel)))
+						.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+						.addComponent(updateButton)
+						.addGap(18))
+				);
 		panel_2.setLayout(gl_panel_2);
-		
+
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(null);
-		
+
 		selectBlockComboBox = new JComboBox();
 		selectBlockComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Select block"}));
 		selectLevelComboBox = new JComboBox();
 		selectLevelComboBox.setModel(new DefaultComboBoxModel(new String[] {"Select level"}));
 		JLabel placeABlockLabel = new JLabel("Place a block: ");
 		placeABlockLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		
+
 		JButton placeBlockButton = new JButton("Place");
 		placeBlockButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -524,76 +524,76 @@ public class BlockSettings extends JFrame {
 				}
 			}
 		});
-		
+
 		JLabel moveABlockLabel = new JLabel("Move a block:");
 		moveABlockLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		
+
 		JLabel selectPositionLabel = new JLabel("Select position.");
-		
+
 		JButton moveBlockButton = new JButton("Move");
-		
+
 		JLabel selectLabel = new JLabel("Select");
-		
+
 		JLabel newPositionLabel = new JLabel("new position.");
-		
+
 		JLabel andLabel = new JLabel("&");
-		
+
 		JCheckBox blockSelectedCheckBox = new JCheckBox("Selected?");
 
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
-			gl_panel_3.createParallelGroup(Alignment.LEADING)
+				gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_3.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-						.addComponent(placeBlockButton)
-						.addComponent(selectPositionLabel, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
-						.addComponent(selectBlockComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(placeABlockLabel))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_3.createSequentialGroup()
-							.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addContainerGap()
+						.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+								.addComponent(placeBlockButton)
+								.addComponent(selectPositionLabel, GroupLayout.PREFERRED_SIZE, 124, GroupLayout.PREFERRED_SIZE)
+								.addComponent(selectBlockComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(placeABlockLabel))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel_3.createSequentialGroup()
-									.addComponent(moveBlockButton)
-									.addGap(4))
-								.addComponent(selectLabel, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
-								.addComponent(newPositionLabel, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-								.addComponent(andLabel)
-								.addComponent(blockSelectedCheckBox, Alignment.TRAILING))
-							.addGap(21))
-						.addGroup(gl_panel_3.createSequentialGroup()
-							.addComponent(moveABlockLabel)
-							.addContainerGap())))
-		);
+										.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_panel_3.createSequentialGroup()
+														.addComponent(moveBlockButton)
+														.addGap(4))
+												.addComponent(selectLabel, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+												.addComponent(newPositionLabel, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+												.addComponent(andLabel)
+												.addComponent(blockSelectedCheckBox, Alignment.TRAILING))
+										.addGap(21))
+								.addGroup(gl_panel_3.createSequentialGroup()
+										.addComponent(moveABlockLabel)
+										.addContainerGap())))
+				);
 		gl_panel_3.setVerticalGroup(
-			gl_panel_3.createParallelGroup(Alignment.TRAILING)
+				gl_panel_3.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_3.createSequentialGroup()
-					.addContainerGap(129, Short.MAX_VALUE)
-					.addComponent(placeBlockButton)
-					.addGap(14))
+						.addContainerGap(129, Short.MAX_VALUE)
+						.addComponent(placeBlockButton)
+						.addGap(14))
 				.addGroup(gl_panel_3.createSequentialGroup()
-					.addContainerGap(13, Short.MAX_VALUE)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(placeABlockLabel)
-						.addComponent(moveABlockLabel))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(selectPositionLabel)
-						.addComponent(blockSelectedCheckBox))
-					.addGap(8)
-					.addComponent(andLabel)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
-						.addComponent(selectLabel)
-						.addComponent(selectBlockComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(newPositionLabel)
-					.addPreferredGap(ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-					.addComponent(moveBlockButton)
-					.addContainerGap())
-		);
-		
+						.addContainerGap(13, Short.MAX_VALUE)
+						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+								.addComponent(placeABlockLabel)
+								.addComponent(moveABlockLabel))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+								.addComponent(selectPositionLabel)
+								.addComponent(blockSelectedCheckBox))
+						.addGap(8)
+						.addComponent(andLabel)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_panel_3.createParallelGroup(Alignment.BASELINE)
+								.addComponent(selectLabel)
+								.addComponent(selectBlockComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(newPositionLabel)
+						.addPreferredGap(ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+						.addComponent(moveBlockButton)
+						.addContainerGap())
+				);
+
 		selectLevelComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (selectLevelComboBox.getSelectedItem() != null) {
@@ -616,7 +616,7 @@ public class BlockSettings extends JFrame {
 				}
 			}
 		});
-		
+
 		panel_3.setLayout(gl_panel_3);
 		selectGameComboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -649,58 +649,58 @@ public class BlockSettings extends JFrame {
 				}
 			}
 		});
-		
+
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(104, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(selectGameComboBox, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(selectLevelComboBox, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(blockLivePositionLabel))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(gridTable, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addContainerGap(104, Short.MAX_VALUE)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(panel, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE))
+										.addComponent(selectGameComboBox, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+										.addGap(18)
+										.addComponent(selectLevelComboBox, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
+										.addGap(18)
+										.addComponent(blockLivePositionLabel))
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)))))
-					.addGap(12))
-		);
+										.addComponent(gridTable, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_contentPane.createSequentialGroup()
+														.addComponent(panel, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.UNRELATED)
+														.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE))
+												.addGroup(gl_contentPane.createSequentialGroup()
+														.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.UNRELATED)
+														.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 231, GroupLayout.PREFERRED_SIZE)))))
+						.addGap(12))
+				);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(gridTable, GroupLayout.PREFERRED_SIZE, 351, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
-								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-								.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))))
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(selectGameComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(selectLevelComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(blockLivePositionLabel))
-					.addContainerGap(132, Short.MAX_VALUE))
-		);
-		
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(gridTable, GroupLayout.PREFERRED_SIZE, 351, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_contentPane.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
+												.addComponent(panel, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+												.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))))
+						.addGap(18)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(selectGameComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(selectLevelComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(blockLivePositionLabel))
+						.addContainerGap(132, Short.MAX_VALUE))
+				);
+
 		JLabel createBlockLabel = new JLabel("Create a block:");
 		createBlockLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		
+
 		JButton createColorButton = new JButton("Choose the color");
 		createColorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -712,69 +712,69 @@ public class BlockSettings extends JFrame {
 				dialog.setVisible(true);
 			}
 		});
-		
+
 		JLabel pointsLabel = new JLabel("Points :");
-		
+
 		pointsTxt = new JTextField();
 		pointsTxt.setColumns(10);
-		
+
 		JButton createButton = new JButton("Create");
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+				gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(59)
-					.addComponent(createColorButton)
-					.addContainerGap(59, Short.MAX_VALUE))
+						.addGap(59)
+						.addComponent(createColorButton)
+						.addContainerGap(59, Short.MAX_VALUE))
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(78)
-					.addComponent(pointsLabel)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(pointsTxt, 0, 0, Short.MAX_VALUE)
-					.addGap(78))
+						.addGap(78)
+						.addComponent(pointsLabel)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(pointsTxt, 0, 0, Short.MAX_VALUE)
+						.addGap(78))
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(83)
-					.addComponent(createButton)
-					.addContainerGap(83, Short.MAX_VALUE))
+						.addGap(83)
+						.addComponent(createButton)
+						.addContainerGap(83, Short.MAX_VALUE))
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(73)
-					.addComponent(createBlockLabel)
-					.addContainerGap(74, Short.MAX_VALUE))
-		);
+						.addGap(73)
+						.addComponent(createBlockLabel)
+						.addContainerGap(74, Short.MAX_VALUE))
+				);
 		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
+				gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(createBlockLabel)
-					.addGap(18)
-					.addComponent(createColorButton)
-					.addGap(18)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(pointsTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(3)
-							.addComponent(pointsLabel)))
-					.addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-					.addComponent(createButton)
-					.addGap(18))
-		);
+						.addContainerGap()
+						.addComponent(createBlockLabel)
+						.addGap(18)
+						.addComponent(createColorButton)
+						.addGap(18)
+						.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(pointsTxt, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panel.createSequentialGroup()
+										.addGap(3)
+										.addComponent(pointsLabel)))
+						.addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+						.addComponent(createButton)
+						.addGap(18))
+				);
 		panel.setLayout(gl_panel);
 		contentPane.setLayout(gl_contentPane);
 
 		// Listener methods 
 		createButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-		        Color newColor = colorChooserCreateBlock.getColor();
-		        int points = Integer.valueOf(pointsTxt.getText());
-		        int red, green, blue;
-		        if (newColor != null ) {
-		        	red = newColor.getRed();
-		        	blue = newColor.getBlue();
-		        	green = newColor.getGreen();
-		        } else {
-		        	red = green = blue = 0;
-		        }
-		        try {
+				Color newColor = colorChooserCreateBlock.getColor();
+				int points = Integer.valueOf(pointsTxt.getText());
+				int red, green, blue;
+				if (newColor != null ) {
+					red = newColor.getRed();
+					blue = newColor.getBlue();
+					green = newColor.getGreen();
+				} else {
+					red = green = blue = 0;
+				}
+				try {
 					Block223Controller.addBlock(red, green, blue, points);
 					blockSettingsRefreshData();
 					blockDeleteRefreshData();
@@ -782,10 +782,10 @@ public class BlockSettings extends JFrame {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(contentPane, e.getMessage());
 				}
-				
+
 			}
 		});
-		
+
 		deleteFromGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				if (selectBlockToDeleteComboBox.getSelectedItem() != null) {
@@ -799,12 +799,12 @@ public class BlockSettings extends JFrame {
 						} catch (InvalidInputException e) {
 							JOptionPane.showMessageDialog(contentPane, e.getMessage());
 						}
-						
+
 					}
 				}
 			}
 		});
-		
+
 		deleteFromLevelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				if(selectLevelComboBox.getSelectedIndex()>0) {
@@ -822,7 +822,7 @@ public class BlockSettings extends JFrame {
 				}
 			}
 		});
-		
+
 		blockSelectedCheckBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean blockSelected = blockSelectedCheckBox.isSelected();
@@ -832,7 +832,7 @@ public class BlockSettings extends JFrame {
 				}
 			}
 		});
-		
+
 		moveBlockButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				if(selectLevelComboBox.getSelectedIndex()>0) {
@@ -887,7 +887,7 @@ public class BlockSettings extends JFrame {
 			List<TOBlock> blocks = Block223Controller.getBlocksOfCurrentDesignableGame();
 			for(TOBlock block: blocks) {
 				String blockAttr = "ID: " + block.getId() + " RGB:(" + block.getRed() 
-									+ "," + block.getGreen() + "," + block.getBlue()+")";
+				+ "," + block.getGreen() + "," + block.getBlue()+")";
 				selectBlockToDeleteComboBox.addItem(blockAttr);
 			}
 		} catch (InvalidInputException e) {
