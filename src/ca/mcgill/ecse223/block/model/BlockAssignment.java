@@ -4,8 +4,8 @@
 package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 
-// line 79 "../../../../../Block223Persistence.ump"
-// line 185 "../../../../../Block223.ump"
+// line 88 "../../../../../Block223Persistence.ump"
+// line 194 "../../../../../Block223.ump"
 public class BlockAssignment implements Serializable
 {
 
@@ -35,12 +35,12 @@ public class BlockAssignment implements Serializable
 
   public BlockAssignment(int aGridHorizontalPosition, int aGridVerticalPosition, Level aLevel, Block aBlock, Game aGame)
   {
-    // line 194 "../../../../../Block223.ump"
+    // line 203 "../../../../../Block223.ump"
     if (aGridHorizontalPosition < 1 || aGridHorizontalPosition > MAX_NR_HORZ_BLOCKS) {
         	throw new RuntimeException("The horizontal position must be between 1 and " + MAX_NR_HORZ_BLOCKS + ".");
         	}
     // END OF UMPLE BEFORE INJECTION
-    // line 199 "../../../../../Block223.ump"
+    // line 208 "../../../../../Block223.ump"
     if (aGridVerticalPosition < 1 || aGridVerticalPosition > MAX_NR_VERT_BLOCKS) {
         	throw new RuntimeException("The vertical position must be between 1 and " + MAX_NR_VERT_BLOCKS + ".");    	
         	}
@@ -71,7 +71,7 @@ public class BlockAssignment implements Serializable
   public boolean setGridHorizontalPosition(int aGridHorizontalPosition)
   {
     boolean wasSet = false;
-    // line 194 "../../../../../Block223.ump"
+    // line 203 "../../../../../Block223.ump"
     if (aGridHorizontalPosition < 1 || aGridHorizontalPosition > MAX_NR_HORZ_BLOCKS) {
         	throw new RuntimeException("The horizontal position must be between 1 and " + MAX_NR_HORZ_BLOCKS + ".");
         	}
@@ -84,7 +84,7 @@ public class BlockAssignment implements Serializable
   public boolean setGridVerticalPosition(int aGridVerticalPosition)
   {
     boolean wasSet = false;
-    // line 199 "../../../../../Block223.ump"
+    // line 208 "../../../../../Block223.ump"
     if (aGridVerticalPosition < 1 || aGridVerticalPosition > MAX_NR_VERT_BLOCKS) {
         	throw new RuntimeException("The vertical position must be between 1 and " + MAX_NR_VERT_BLOCKS + ".");    	
         	}
@@ -212,7 +212,7 @@ public class BlockAssignment implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 82 "../../../../../Block223Persistence.ump"
+  // line 91 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 9L ;
 
   

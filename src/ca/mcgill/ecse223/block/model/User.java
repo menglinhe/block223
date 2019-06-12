@@ -5,8 +5,8 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 16 "../../../../../Block223Persistence.ump"
-// line 33 "../../../../../Block223.ump"
+// line 25 "../../../../../Block223Persistence.ump"
+// line 42 "../../../../../Block223.ump"
 public class User implements Serializable
 {
 
@@ -33,7 +33,7 @@ public class User implements Serializable
 
   public User(String aUsername, Block223 aBlock223, UserRole... allRoles)
   {
-    // line 38 "../../../../../Block223.ump"
+    // line 47 "../../../../../Block223.ump"
     if (aUsername == null || aUsername.length() == 0) {
        		throw new RuntimeException("The username must be specified.");
        	}
@@ -62,7 +62,7 @@ public class User implements Serializable
   public boolean setUsername(String aUsername)
   {
     boolean wasSet = false;
-    // line 38 "../../../../../Block223.ump"
+    // line 47 "../../../../../Block223.ump"
     if (aUsername == null || aUsername.length() == 0) {
        		throw new RuntimeException("The username must be specified.");
        	}
@@ -257,7 +257,7 @@ public class User implements Serializable
     }
   }
 
-  // line 21 "../../../../../Block223Persistence.ump"
+  // line 30 "../../../../../Block223Persistence.ump"
    public static  void reinitializeUniqueUserName(List<User> users){
     usersByUsername = new HashMap<String, User>();
 	  for (User user : users) {
@@ -265,7 +265,7 @@ public class User implements Serializable
 	      }
   }
 
-  // line 44 "../../../../../Block223.ump"
+  // line 53 "../../../../../Block223.ump"
    public static  String findUsername(UserRole ur){
     for (String username : usersByUsername.keySet())
 	    {
@@ -289,7 +289,7 @@ public class User implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 19 "../../../../../Block223Persistence.ump"
+  // line 28 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 2L ;
 
   

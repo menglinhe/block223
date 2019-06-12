@@ -5,9 +5,9 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 3 "../../../../../Block223PlayMode.ump"
-// line 3 "../../../../../Block223Persistence.ump"
-// line 7 "../../../../../Block223.ump"
+// line 12 "../../../../../Block223PlayMode.ump"
+// line 12 "../../../../../Block223Persistence.ump"
+// line 16 "../../../../../Block223.ump"
 public class Block223 implements Serializable
 {
 
@@ -585,7 +585,7 @@ public class Block223 implements Serializable
     
   }
 
-  // line 8 "../../../../../Block223Persistence.ump"
+  // line 17 "../../../../../Block223Persistence.ump"
    public void reinitialize(){
     User.reinitializeUniqueUserName(this.getUsers());
 		Game.reinitializeUniqueGameName(this.getGames());
@@ -594,7 +594,7 @@ public class Block223 implements Serializable
 		}
   }
 
-  // line 14 "../../../../../Block223.ump"
+  // line 23 "../../../../../Block223.ump"
    public Game findGame(String name){
     for(Game game : games)
       {
@@ -606,7 +606,7 @@ public class Block223 implements Serializable
       return null;
   }
 
-  // line 24 "../../../../../Block223.ump"
+  // line 33 "../../../../../Block223.ump"
    public PlayedGame findPlayableGame(int id){
     for (PlayedGame game : playedGames) {
 			if (game.getId() == id) {
@@ -620,7 +620,7 @@ public class Block223 implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 6 "../../../../../Block223Persistence.ump"
+  // line 15 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 1L ;
 
   

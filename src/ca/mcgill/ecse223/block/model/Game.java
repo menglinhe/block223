@@ -5,9 +5,9 @@ package ca.mcgill.ecse223.block.model;
 import java.io.Serializable;
 import java.util.*;
 
-// line 8 "../../../../../Block223PlayMode.ump"
-// line 46 "../../../../../Block223Persistence.ump"
-// line 75 "../../../../../Block223.ump"
+// line 17 "../../../../../Block223PlayMode.ump"
+// line 55 "../../../../../Block223Persistence.ump"
+// line 84 "../../../../../Block223.ump"
 public class Game implements Serializable
 {
 
@@ -59,17 +59,17 @@ public class Game implements Serializable
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, Ball aBall, Paddle aPaddle, Block223 aBlock223)
   {
-    // line 84 "../../../../../Block223.ump"
+    // line 93 "../../../../../Block223.ump"
     if(aBlock223.findGame(aName) != null) {
         	throw new RuntimeException("The name of a game must be unique.");
         }
     // END OF UMPLE BEFORE INJECTION
-    // line 89 "../../../../../Block223.ump"
+    // line 98 "../../../../../Block223.ump"
     if(aName == null || aName.length() == 0){
        		throw new RuntimeException("The name of a game must be specified.");
        	}
     // END OF UMPLE BEFORE INJECTION
-    // line 95 "../../../../../Block223.ump"
+    // line 104 "../../../../../Block223.ump"
     if(aNrBlocksPerLevel <= 0){
        		throw new RuntimeException("The number of blocks per level must be greater than zero.");
        	}
@@ -118,17 +118,17 @@ public class Game implements Serializable
 
   public Game(String aName, int aNrBlocksPerLevel, Admin aAdmin, int aMinBallSpeedXForBall, int aMinBallSpeedYForBall, double aBallSpeedIncreaseFactorForBall, int aMaxPaddleLengthForPaddle, int aMinPaddleLengthForPaddle, Block223 aBlock223)
   {
-    // line 84 "../../../../../Block223.ump"
+    // line 93 "../../../../../Block223.ump"
     if(aBlock223.findGame(aName) != null) {
         	throw new RuntimeException("The name of a game must be unique.");
         }
     // END OF UMPLE BEFORE INJECTION
-    // line 89 "../../../../../Block223.ump"
+    // line 98 "../../../../../Block223.ump"
     if(aName == null || aName.length() == 0){
        		throw new RuntimeException("The name of a game must be specified.");
        	}
     // END OF UMPLE BEFORE INJECTION
-    // line 95 "../../../../../Block223.ump"
+    // line 104 "../../../../../Block223.ump"
     if(aNrBlocksPerLevel <= 0){
        		throw new RuntimeException("The number of blocks per level must be greater than zero.");
        	}
@@ -179,7 +179,7 @@ public class Game implements Serializable
   public boolean setName(String aName)
   {
     boolean wasSet = false;
-    // line 89 "../../../../../Block223.ump"
+    // line 98 "../../../../../Block223.ump"
     if(aName == null || aName.length() == 0){
        		throw new RuntimeException("The name of a game must be specified.");
        	}
@@ -200,12 +200,12 @@ public class Game implements Serializable
   public boolean setNrBlocksPerLevel(int aNrBlocksPerLevel)
   {
     boolean wasSet = false;
-    // line 95 "../../../../../Block223.ump"
+    // line 104 "../../../../../Block223.ump"
     if(aNrBlocksPerLevel <= 0){
        		throw new RuntimeException("The number of blocks per level must be greater than zero.");
        	}
     // END OF UMPLE BEFORE INJECTION
-    // line 100 "../../../../../Block223.ump"
+    // line 109 "../../../../../Block223.ump"
     if(hasLevels()) {
         	List<Level> levels = getLevels();
         	for (Level level : levels) {
@@ -311,7 +311,7 @@ public class Game implements Serializable
   /* Code from template association_GetMany */
   public Level getLevel(int index)
   {
-    // line 110 "../../../../../Block223.ump"
+    // line 119 "../../../../../Block223.ump"
     if(index < 0 || index > numberOfLevels() - 1) {
        		throw new IndexOutOfBoundsException("Level " + (index + 1) + " does not exist for the game.");
        	}
@@ -924,7 +924,7 @@ public class Game implements Serializable
     }
   }
 
-  // line 13 "../../../../../Block223PlayMode.ump"
+  // line 22 "../../../../../Block223PlayMode.ump"
    public Block getRandomBlock(){
     Random rand = new Random();
    	int rIndex = rand.nextInt(this.numberOfBlocks());
@@ -932,7 +932,7 @@ public class Game implements Serializable
    	return rBlock;
   }
 
-  // line 51 "../../../../../Block223Persistence.ump"
+  // line 60 "../../../../../Block223Persistence.ump"
    public static  void reinitializeUniqueGameName(List<Game> games){
     gamesByName = new HashMap<String, Game>();
 	  for (Game game : games) {
@@ -940,7 +940,7 @@ public class Game implements Serializable
 	      }
   }
 
-  // line 123 "../../../../../Block223.ump"
+  // line 132 "../../../../../Block223.ump"
    public Block findBlock(int id){
     List<Block> blocks = getBlocks();
    	for(Block block: blocks){
@@ -969,7 +969,7 @@ public class Game implements Serializable
   // DEVELOPER CODE - PROVIDED AS-IS
   //------------------------
   
-  // line 49 "../../../../../Block223Persistence.ump"
+  // line 58 "../../../../../Block223Persistence.ump"
   private static final long serialVersionUID = 6L ;
 
   
